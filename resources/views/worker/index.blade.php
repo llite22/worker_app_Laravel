@@ -15,6 +15,23 @@ Index page
         <a href="{{route('worker.create')}}">Создать</a>
     </div>
     <hr>
+    <div>
+        <form action="{{route('worker.index')}}">
+            <input type="text" name="name" placeholder="name" value="{{request()->get('name')}}">
+            <input type="text" name="surname" placeholder="surname" value="{{request()->get('surname')}}"/>
+            <input type="text" name="email" placeholder="email" value="{{request()->get('email')}}">
+            <input type="number" name="from" placeholder="from" value="{{request()->get('from')}}">
+            <input type="number" name="to" placeholder="to" value="{{request()->get('to')}}">
+            <input type="text" name="description" placeholder="description" value="{{request()->get('description')}}">
+            <input id="is_married" type="checkbox" name="is_married" placeholder="is_married"
+                {{request()->get('is_married')== 'on' ? 'checked' : ''}}
+            >
+            <label for="is_married">Is Married</label>
+            <button type="submit">Поиск</button>
+            <a href="{{route('worker.index')}}">Сбросить</a>
+        </form>
+    </div>
+    <hr>
     @foreach($workers as $worker)
         <div>
             <div>{{ $worker->name }}</div>
@@ -40,7 +57,7 @@ Index page
         <hr>
     @endforeach
     <div class="my_nav">
-        {{ $workers->links() }}
+        {{ $workers->withQueryString()->links() }}
     </div>
 </div>
 <style>
