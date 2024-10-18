@@ -25,9 +25,24 @@ class StoreRequest extends FormRequest
             'name' => 'required|string',
             'surname' => 'required|string',
             'email' => 'required|email',
-            'age' => 'nullable|numeric|min:1|max:120',
+            'age' => 'nullable|integer',
             'description' => 'nullable|string',
             'is_married' => 'nullable|string',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Это поле необходимо заполнить',
+            'name.string' => 'Это поле должно быть строкой',
+            'surname.required' => 'Это поле необходимо заполнить',
+            'surname.string' => 'Это поле должно быть строкой',
+            'email.required' => 'Это поле необходимо заполнить',
+            'email.email' => 'Это поле должно быть формата электронной почты',
+            'age.integer' => 'Это поле должно быть строкой',
+            'description.string' => 'Это поле должно быть строкой',
+            'is_married.string' => 'Это поле должно быть строкой',
         ];
     }
 }
