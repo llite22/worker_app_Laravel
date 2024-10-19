@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 class Department extends Model
@@ -15,5 +16,10 @@ class Department extends Model
     {
         return $this->hasOneThrough(Worker::class, Position::class, 'department_id', 'position_id', 'id', 'id')
             ->where('position_id', 4);
+    }
+
+    public function workers(): hasManyThrough
+    {
+        return $this->hasManyThrough(Worker::class, Position::class, 'department_id', 'position_id', 'id', 'id');
     }
 }
