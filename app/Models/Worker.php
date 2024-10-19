@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class Worker extends Model
 {
@@ -26,5 +27,10 @@ class Worker extends Model
     public function projects(): BelongsToMany
     {
         return $this->belongsToMany(Project::class, 'project_workers', 'worker_id', 'project_id');
+    }
+
+    public function avatar(): MorphOne
+    {
+        return $this->morphOne(Avatar::class, 'avatarable');
     }
 }

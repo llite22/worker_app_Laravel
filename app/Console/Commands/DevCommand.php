@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Client;
 use App\Models\Department;
 use App\Models\Position;
 use App\Models\Profile;
@@ -31,9 +32,18 @@ class DevCommand extends Command
      */
     public function handle()
     {
-        $this->prepareData();
-        $this->prepareManyToMany();
+//        $this->prepareData();
+//        $this->prepareManyToMany();
 
+//        $worker = Worker::find(1);
+//        $worker->avatar()->create([
+//           'path' => 'some path'
+//        ]);
+
+        $client = Client::find(1);
+        $client->avatar()->create([
+            'path' => 'client path'
+        ]);
         return 0;
     }
 
