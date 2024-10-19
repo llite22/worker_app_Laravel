@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Department;
 use App\Models\Position;
 use App\Models\Profile;
 use App\Models\Project;
@@ -30,18 +31,20 @@ class DevCommand extends Command
      */
     public function handle()
     {
-//        $this->prepareData();
-//        $this->prepareManyToMany();
-        $worker = Worker::find(2);
+        $this->prepareData();
+        $this->prepareManyToMany();
 
         return 0;
     }
 
     private function prepareData()
     {
-        $position1 = Position::create(['title' => 'Developer']);
-        $position2 = Position::create(['title' => 'Manager']);
-        $position3 = Position::create(['title' => 'Designer']);
+        $department1 = Department::create(['title' => 'IT']);
+        $department2 = Department::create(['title' => 'Analytics']);
+
+        $position1 = Position::create(['title' => 'Developer', 'department_id' => $department1->id]);
+        $position2 = Position::create(['title' => 'Manager', 'department_id' => $department1->id]);
+        $position3 = Position::create(['title' => 'Designer', 'department_id' => $department1->id]);
 
         $workerData1 = [
             'name' => 'John',
@@ -195,7 +198,6 @@ class DevCommand extends Command
             'project_id' => $project1->id,
             'worker_id' => $workerFrontend1->id
         ]);
-
 
 
         ProjectWorker::create([
