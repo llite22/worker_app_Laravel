@@ -4,6 +4,8 @@ namespace App\Console\Commands;
 
 use App\Models\Position;
 use App\Models\Profile;
+use App\Models\Project;
+use App\Models\ProjectWorker;
 use App\Models\Worker;
 use Illuminate\Console\Command;
 
@@ -29,19 +31,17 @@ class DevCommand extends Command
     public function handle()
     {
 //        $this->prepareData();
-        $worker = Worker::find(1);
-        $position = Position::find(1);
-        dd($position->workers->toArray());
-
-        dd($worker->position->toArray());
+//        $this->prepareManyToMany();
+        $worker = Worker::find(2);
 
         return 0;
     }
 
-    public function prepareData()
+    private function prepareData()
     {
         $position1 = Position::create(['title' => 'Developer']);
         $position2 = Position::create(['title' => 'Manager']);
+        $position3 = Position::create(['title' => 'Designer']);
 
         $workerData1 = [
             'name' => 'John',
@@ -73,9 +73,42 @@ class DevCommand extends Command
             'is_married' => false,
         ];
 
+        $workerData4 = [
+            'name' => 'Sergey1',
+            'surname' => 'Vas1',
+            'position_id' => $position3->id,
+            'email' => 'fefewfwfef@example.com',
+            'age' => 21,
+            'description' => 'cokie',
+            'is_married' => false,
+        ];
+
+        $workerData5 = [
+            'name' => 'Sergey2',
+            'surname' => 'Vas2',
+            'position_id' => $position2->id,
+            'email' => 'fefewfwfef@example.com',
+            'age' => 21,
+            'description' => 'cokie',
+            'is_married' => false,
+        ];
+
+        $workerData6 = [
+            'name' => 'Sergey3',
+            'surname' => 'Vas3',
+            'position_id' => $position3->id,
+            'email' => 'fefewfwfef@example.com',
+            'age' => 21,
+            'description' => 'cokie',
+            'is_married' => false,
+        ];
+
         $worker1 = Worker::create($workerData1);
         $worker2 = Worker::create($workerData2);
         $worker3 = Worker::create($workerData3);
+        $worker4 = Worker::create($workerData4);
+        $worker5 = Worker::create($workerData5);
+        $worker6 = Worker::create($workerData6);
 
         $profileData1 = [
             'worker_id' => $worker1->id,
@@ -100,9 +133,87 @@ class DevCommand extends Command
             'experience' => 2,
             'finished_study_at' => '2023-01-01',
         ];
+        $profileData4 = [
+            'worker_id' => $worker4->id,
+            'city' => 'авуацуа',
+            'skill' => 'C#+',
+            'experience' => 5,
+            'finished_study_at' => '2013-01-01',
+        ];
+        $profileData5 = [
+            'worker_id' => $worker5->id,
+            'city' => 'ауцаука',
+            'skill' => 'C#+вчаиаир',
+            'experience' => 6,
+            'finished_study_at' => '2023-01-01',
+        ];
+        $profileData6 = [
+            'worker_id' => $worker6->id,
+            'city' => 'всаривртп',
+            'skill' => 'C#пваирвре',
+            'experience' => 7,
+            'finished_study_at' => '2012-01-01',
+        ];
 
         Profile::create($profileData1);
         Profile::create($profileData2);
         Profile::create($profileData3);
+        Profile::create($profileData4);
+        Profile::create($profileData5);
+        Profile::create($profileData6);
+    }
+
+    private function prepareManyToMany()
+    {
+        $workerManager = Worker::find(2);
+        $workerBackend = Worker::find(1);
+        $workerDesigner1 = Worker::find(5);
+        $workerDesigner2 = Worker::find(6);
+        $workerFrontend1 = Worker::find(4);
+        $workerFrontend2 = Worker::find(3);
+
+        $project1 = Project::create([
+            'title' => 'Shop'
+        ]);
+        $project2 = Project::create([
+            'title' => 'Blog'
+        ]);
+
+        ProjectWorker::create([
+            'project_id' => $project1->id,
+            'worker_id' => $workerManager->id
+        ]);
+        ProjectWorker::create([
+            'project_id' => $project1->id,
+            'worker_id' => $workerBackend->id
+        ]);
+        ProjectWorker::create([
+            'project_id' => $project1->id,
+            'worker_id' => $workerDesigner1->id
+        ]);
+        ProjectWorker::create([
+            'project_id' => $project1->id,
+            'worker_id' => $workerFrontend1->id
+        ]);
+
+
+
+        ProjectWorker::create([
+            'project_id' => $project2->id,
+            'worker_id' => $workerManager->id
+        ]);
+        ProjectWorker::create([
+            'project_id' => $project2->id,
+            'worker_id' => $workerBackend->id
+        ]);
+        ProjectWorker::create([
+            'project_id' => $project2->id,
+            'worker_id' => $workerDesigner2->id
+        ]);
+        ProjectWorker::create([
+            'project_id' => $project2->id,
+            'worker_id' => $workerFrontend2->id
+        ]);
+
     }
 }
