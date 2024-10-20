@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Position extends Model
 {
@@ -21,4 +22,15 @@ class Position extends Model
     {
         return $this->belongsTo(Department::class, 'department_id', 'id');
     }
+
+    public function ageWorker(): HasOne
+    {
+        return $this->hasOne(Worker::class)->ofMany('age', 'min');
+    }
+
+    public function surnameWorker(): HasOne
+    {
+        return $this->hasOne(Worker::class)->where('surname', 'Doe');
+    }
+
 }
