@@ -36,6 +36,12 @@ class DevCommand extends Command
 //        $this->prepareData();
 //        $this->prepareManyToMany();
 
+        $worker = Worker::find(5);
+        $client = Client::find(1);
+
+        $worker->tags()->attach([1, 3]);
+        $client->tags()->attach([1, 3]);
+
 //        $worker = Worker::find(1);
 //        $worker->reviews()->create([
 //           'body' => 'body 1'
@@ -58,8 +64,8 @@ class DevCommand extends Command
 //            'body' => 'client 3'
 //        ]);
 
-        $review = Review::find(1);
-        dd($review->reviewable->toArray());
+//        $review = Review::find(1);
+//        dd($review->reviewable->toArray());
         return 0;
     }
 
