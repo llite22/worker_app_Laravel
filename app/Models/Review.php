@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
-class Avatar extends Model
+class Review extends Model
 {
     protected $guarded = false;
 
-    public function avatarable(): MorphTo
+    public function reviewable(): MorphTo
     {
         return $this->morphTo();
     }

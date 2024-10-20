@@ -8,6 +8,7 @@ use App\Models\Position;
 use App\Models\Profile;
 use App\Models\Project;
 use App\Models\ProjectWorker;
+use App\Models\Review;
 use App\Models\Worker;
 use Illuminate\Console\Command;
 
@@ -36,19 +37,47 @@ class DevCommand extends Command
 //        $this->prepareManyToMany();
 
 //        $worker = Worker::find(1);
-//        $worker->avatar()->create([
-//           'path' => 'some path'
+//        $worker->reviews()->create([
+//           'body' => 'body 1'
+//        ]);
+//        $worker->reviews()->create([
+//            'body' => 'body 2'
+//        ]);
+//        $worker->reviews()->create([
+//            'body' => 'body 3'
+//        ]);
+//
+//        $client = Client::find(1);
+//        $client->reviews()->create([
+//            'body' => 'client 1'
+//        ]);
+//        $client->reviews()->create([
+//            'body' => 'client 2'
+//        ]);
+//        $client->reviews()->create([
+//            'body' => 'client 3'
 //        ]);
 
-        $client = Client::find(1);
-        $client->avatar()->create([
-            'path' => 'client path'
-        ]);
+        $review = Review::find(1);
+        dd($review->reviewable->toArray());
         return 0;
     }
 
     private function prepareData()
     {
+        Client::create([
+            'name' => 'John',
+        ]);
+
+        Client::create([
+            'name' => 'Wick',
+        ]);
+        Client::create([
+            'name' => 'Баба Яга',
+        ]);
+
+
+
         $department1 = Department::create(['title' => 'IT']);
         $department2 = Department::create(['title' => 'Analytics']);
 
