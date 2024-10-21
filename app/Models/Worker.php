@@ -25,6 +25,12 @@ class Worker extends Model
         static::created(function ($model) {
             event(new CreatedEvent($model));
         });
+
+        static::updated(function ($model) {
+            if ($model->wasChanged() && $model->getOriginal('age') != $model->getAttributes()['age']) {
+                event(new CreatedEvent($model));
+            }
+        });
     }
 
     public function profile(): HasOne
