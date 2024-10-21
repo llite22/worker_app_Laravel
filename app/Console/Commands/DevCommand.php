@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\SomeJob;
 use App\Models\Client;
 use App\Models\Department;
 use App\Models\Position;
@@ -33,11 +34,7 @@ class DevCommand extends Command
      */
     public function handle()
     {
-//        $worker = Worker::find(1);
-//        $worker->delete();
-
-        $workers = Worker::withTrashed()->get();
-        dd($workers->count());
+        SomeJob::dispatchSync();
 
         return 0;
     }
