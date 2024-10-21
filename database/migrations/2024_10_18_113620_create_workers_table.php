@@ -19,6 +19,8 @@ return new class extends Migration {
             $table->text('description')->nullable();;
             $table->boolean('is_married')->default(false);
             $table->foreignId('position_id')->index()->nullable()->constrained('positions')->onDelete('cascade');
+
+            $table->softDeletes();
             $table->timestamps();
         });
     }
