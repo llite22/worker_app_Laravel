@@ -3,9 +3,12 @@
 
     <div>
         <hr>
-        <div>
-            <a href="{{route('workers.create')}}">Создать</a>
-        </div>
+
+        @can('create', \App\Models\Worker::class)
+            <div>
+                <a href="{{route('workers.create')}}">Создать</a>
+            </div>
+        @endcan
         <hr>
         <div>
             <form action="{{route('workers.index')}}">
@@ -36,16 +39,20 @@
                 <div>
                     <a href="{{route('workers.show', $worker->id)}}">Просмотреть</a>
                 </div>
-                <div>
-                    <a href="{{route('workers.edit', $worker->id)}}">Редактировать</a>
-                </div>
-                <div>
-                    <form action="{{route('workers.destroy', $worker->id)}}" method="post">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit">Удалить</button>
-                    </form>
-                </div>
+                @can('update', $worker)
+                    <div>
+                        <a href="{{route('workers.edit', $worker->id)}}">Редактировать</a>
+                    </div>
+                @endcan
+                @can('delete', $worker)
+                    <div>
+                        <form action="{{route('workers.destroy', $worker->id)}}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit">Удалить</button>
+                        </form>
+                    </div>
+                @endcan
             </div>
             <hr>
         @endforeach

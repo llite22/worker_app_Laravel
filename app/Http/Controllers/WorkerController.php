@@ -6,11 +6,14 @@ use App\Http\Requests\Worker\IndexRequest;
 use App\Http\Requests\Worker\StoreRequest;
 use App\Http\Requests\Worker\UpdateRequest;
 use App\Models\Worker;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class WorkerController extends Controller
 {
+    use AuthorizesRequests;
+
     public function index(IndexRequest $request): View
     {
         $data = $request->validated();
@@ -45,7 +48,7 @@ class WorkerController extends Controller
             $workerQuery->where('is_married', true);
         }
 
-        $workers = $workerQuery->paginate(1);
+        $workers = $workerQuery->paginate(5);
         return view('worker.index', compact('workers'));
     }
 
@@ -56,11 +59,15 @@ class WorkerController extends Controller
 
     public function create(): View
     {
+        $this->authorize('create', Worker::class);
+
         return view('worker.create');
     }
 
     public function store(StoreRequest $request): RedirectResponse
     {
+        $this->authorize('create', Worker::class);
+
         $data = $request->validated();
 
         $data['is_married'] = isset($data['is_married']);
@@ -71,11 +78,15 @@ class WorkerController extends Controller
 
     public function edit(Worker $worker): View
     {
+        $this->authorize('update', Worker::class);
+
         return view('worker.edit', compact('worker'));
     }
 
     public function update(UpdateRequest $request, Worker $worker): RedirectResponse
     {
+        $this->authorize('update', Worker::class);
+
         $data = $request->validated();
         $data['is_married'] = isset($data['is_married']);
 
@@ -85,6 +96,7 @@ class WorkerController extends Controller
 
     public function destroy(Worker $worker): RedirectResponse
     {
+        $this->authorize('delete', Worker::class);
         $worker->delete();
         return redirect()->route('workers.index');
     }
