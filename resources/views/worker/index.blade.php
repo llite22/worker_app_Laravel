@@ -4,11 +4,11 @@
     <div>
         <hr>
         <div>
-            <a href="{{route('worker.create')}}">Создать</a>
+            <a href="{{route('workers.create')}}">Создать</a>
         </div>
         <hr>
         <div>
-            <form action="{{route('worker.index')}}">
+            <form action="{{route('workers.index')}}">
                 <input type="text" name="name" placeholder="name" value="{{request()->get('name')}}">
                 <input type="text" name="surname" placeholder="surname" value="{{request()->get('surname')}}"/>
                 <input type="text" name="email" placeholder="email" value="{{request()->get('email')}}">
@@ -21,7 +21,7 @@
                 >
                 <label for="is_married">Is Married</label>
                 <button type="submit">Поиск</button>
-                <a href="{{route('worker.index')}}">Сбросить</a>
+                <a href="{{route('workers.index')}}">Сбросить</a>
             </form>
         </div>
         <hr>
@@ -34,13 +34,13 @@
                 <div>{{ $worker->description }}</div>
                 <div>{{ $worker->is_married }}</div>
                 <div>
-                    <a href="{{route('worker.show', $worker->id)}}">Просмотреть</a>
+                    <a href="{{route('workers.show', $worker->id)}}">Просмотреть</a>
                 </div>
                 <div>
-                    <a href="{{route('worker.edit', $worker->id)}}">Редактировать</a>
+                    <a href="{{route('workers.edit', $worker->id)}}">Редактировать</a>
                 </div>
                 <div>
-                    <form action="{{route('worker.delete', $worker->id)}}" method="post">
+                    <form action="{{route('workers.destroy', $worker->id)}}" method="post">
                         @csrf
                         @method('DELETE')
                         <button type="submit">Удалить</button>

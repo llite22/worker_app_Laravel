@@ -3,7 +3,7 @@
 
     <div>
         <div>
-            <form action="{{route('worker.store')}}" method="post">
+            <form action="{{route('workers.store')}}" method="post">
                 @csrf
                 <div>
                     <label for="name">Name</label>

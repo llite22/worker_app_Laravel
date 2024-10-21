@@ -3,7 +3,7 @@
 
     <div>
         <div>
-            <form action="{{route('worker.update', $worker->id)}}" method="post">
+            <form action="{{route('workers.update', $worker->id)}}" method="post">
                 @csrf
                 @method('PATCH')
                 <div>
